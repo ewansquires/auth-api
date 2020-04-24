@@ -1,17 +1,17 @@
 package authapi.model
 
+import javax.persistence.{Entity, GeneratedValue, GenerationType, Id}
+
+@Entity
 class User {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   var id: Long = _
 
   var username: String = _
 
   var role: String = _
-
-  def withId(id: Int): User = {
-    this.id = id
-    this
-  }
 
   def withUsername(username: String): User = {
     this.username = username
@@ -23,15 +23,13 @@ class User {
     this
   }
 
-  def getId() = id
+  def getId(): Long = id
 
-  def setId(id: Int) = this.id = id
-
-  def getUsername() = username
+  def getUsername(): String = username
 
   def setUsername(username: String) = this.username = username
 
-  def getRole() = role
+  def getRole(): String = role
 
   def setRole(role: String) = this.role = role
 }
