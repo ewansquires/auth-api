@@ -4,7 +4,7 @@ import authapi.model.User
 import authapi.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.{GetMapping, PathVariable, PostMapping, RequestMapping, RestController}
+import org.springframework.web.bind.annotation.{GetMapping, PathVariable, PostMapping, RequestBody, RequestMapping, RestController}
 import java.lang.Long
 import java.lang.Iterable
 
@@ -13,10 +13,7 @@ import java.lang.Iterable
 class UserController @Autowired() (private val userService: UserService) {
 
   @PostMapping(path = Array("/create"))
-  def createUser() = {
-    val user = new User().withUsername("Adam").withRole("Software Engineer")
-    userService.createUser(user)
-  }
+  def saveUser(@RequestBody user: User) = userService.saveUser(user)
 
   @GetMapping(path = Array("/get/{id}"))
   def findUser(@PathVariable("id")id: Long) = userService.findUser(id)

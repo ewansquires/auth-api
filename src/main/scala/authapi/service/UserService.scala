@@ -14,6 +14,6 @@ class UserService @Autowired()(private val userRepository: UserRepository)  {
 
   def findUser(id: Long) = userRepository.findById(id)
 
-  def createUser(user: User) = userRepository.save(user)
+  def saveUser(user: User) = userRepository.save(user)
 
 }
