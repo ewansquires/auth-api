@@ -29,11 +29,11 @@ class User {
 
   def getUsername(): String = username
 
-  def setUsername(username: String) = this.username = username
+  def setUsername(username: String): Unit = this.username = username
 
   def getRole(): String = role
 
-  def setRole(role: String) = this.role = role
+  def setRole(role: String): Unit = this.role = role
 
   def toJsonString(): String = {
     Json.stringify(
