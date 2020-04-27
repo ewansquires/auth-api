@@ -14,9 +14,7 @@ class UserService @Autowired()(private val userRepository: UserRepository)  {
 
   def listUsers(): Iterable[User] = userRepository.findAll()
 
-  @throws(classOf[Exception])
   def findUser(id: Long): Optional[User] = userRepository.findById(id)
 
   def saveUser(user: User) = userRepository.save(user)
-
 }

@@ -11,14 +11,14 @@ class User {
 
   var username: String = _
 
-  var role: String = _
+  var role: Role = _
 
   def withUsername(username: String): User = {
     this.username = username
     this
   }
 
-  def withRole(role: String): User = {
+  def withRole(role: Role): User = {
     this.role = role
     this
   }
@@ -29,7 +29,7 @@ class User {
 
   def setUsername(username: String) = this.username = username
 
-  def getRole(): String = role
+  def getRole(): Role = role
 
-  def setRole(role: String) = this.role = role
+  def setRole(role: Role) = this.role = role
 }
