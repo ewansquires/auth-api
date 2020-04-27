@@ -1,6 +1,8 @@
 package authapi.model
 
+import authapi.model
 import javax.persistence.{Entity, GeneratedValue, GenerationType, Id}
+import play.api.libs.json.{JsNumber, JsObject, JsString, Json}
 
 @Entity
 class User {
@@ -11,14 +13,14 @@ class User {
 
   var username: String = _
 
-  var role: Role = _
+  var role: String = _
 
   def withUsername(username: String): User = {
     this.username = username
     this
   }
 
-  def withRole(role: Role): User = {
+  def withRole(role: String): User = {
     this.role = role
     this
   }
@@ -29,7 +31,19 @@ class User {
 
   def setUsername(username: String) = this.username = username
 
-  def getRole(): Role = role
+  def getRole(): String = role
 
-  def setRole(role: Role) = this.role = role
+  def setRole(role: String) = this.role = role
+
+  def toJsonString(): String = {
+    Json.stringify(
+      JsObject(
+        Seq(
+          "id" -> JsNumber(id),
+          "username" -> JsString(username),
+          "role" -> JsString(role)
+        )
+      )
+    )
+  }
 }
