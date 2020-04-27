@@ -16,4 +16,17 @@ class UserService @Autowired()(private val userRepository: UserRepository)  {
   def findUser(id: Long): Optional[User] = userRepository.findById(id)
 
   def saveUser(user: User) = userRepository.save(user)
+
+  def fillRepository(): Unit = {
+    val users = List(
+      new User().withUsername("Amy").withRole("User"),
+      new User().withUsername("Ben").withRole("Admin"),
+      new User().withUsername("Charlie").withRole("Banned"),
+      new User().withUsername("Devon").withRole("User"),
+      new User().withUsername("Emily").withRole("Banned"),
+      new User().withUsername("Ffion").withRole("User")
+    )
+
+    users.map(saveUser)
+  }
 }

@@ -22,16 +22,5 @@ class UserController @Autowired() (private val userService: UserService) {
   def listUsers(): Iterable[User] = userService.listUsers()
 
   @GetMapping(path = Array("/fill"))
-  def fillUserRepository(): Unit = {
-    val users = List(
-      new User().withUsername("Amy").withRole("User"),
-      new User().withUsername("Ben").withRole("Admin"),
-      new User().withUsername("Charlie").withRole("Banned"),
-      new User().withUsername("Devon").withRole("User"),
-      new User().withUsername("Emily").withRole("Banned"),
-      new User().withUsername("Ffion").withRole("User")
-    )
-
-    users.map(userService.saveUser)
-  }
+  def fillUserRepository(): Unit = userService.fillRepository()
 }
