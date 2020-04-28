@@ -9,20 +9,10 @@ import play.api.libs.json.{JsNumber, JsObject, JsString, Json}
 class AuthenticationService @Autowired()(private val jwtService: JwtService, private val userService: UserService) {
 
   def authenticate(user: User): String = {
-    if (isRequesterAuthentic(user)) {
+    if (userService.isRequesterAuthentic(user)) {
       jwtService.createToken(user)
     } else {
       "\"message\":\"Access Denied.\""
     }
   }
-
-  def isAdmin(token: String): Boolean = isRole("Admin", token)
-
-  private def isRole(role: String, token: String): Boolean = {
-    val payload = Json.parse(jwtService.getMessageFromToken(token))
-    val tokenRole = (payload \ "role").get.toString().replace("\"", "")
-    tokenRole.equals(role)
-  }
-
-  private def isRequesterAuthentic(user: User) = ! (userService.findUser(user.getId()).get().getRole() == "Banned")
 }

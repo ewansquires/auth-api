@@ -5,13 +5,20 @@ import authapi.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.lang.Long
-import java.lang.Iterable
 import java.util.Optional
 
-@Service
-class UserService @Autowired()(private val userRepository: UserRepository)  {
+import play.api.libs.json.Json
 
-  def listUsers(): Iterable[User] = userRepository.findAll()
+@Service
+class UserService @Autowired()(private val userRepository: UserRepository, private val jwtService: JwtService) {
+
+  def listUsers(token: String): Object = {
+    if (isAdmin(token)) {
+      userRepository.findAll()
+    } else {
+      "{\"message\":\"Access Denied.\"}"
+    }
+  }
 
   def findUser(id: Long): Optional[User] = userRepository.findById(id)
 
@@ -28,5 +35,15 @@ class UserService @Autowired()(private val userRepository: UserRepository)  {
     )
 
     users.map(saveUser)
+  }
+
+  def isRequesterAuthentic(user: User) = ! (findUser(user.getId()).get().getRole() == "Banned")
+
+  private def isAdmin(token: String): Boolean = isRole("Admin", token)
+
+  private def isRole(role: String, token: String): Boolean = {
+    val payload = Json.parse(jwtService.getMessageFromToken(token))
+    val tokenRole = (payload \ "role").get.toString().replace("\"", "")
+    tokenRole.equals(role)
   }
 }
