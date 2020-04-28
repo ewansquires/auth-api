@@ -110,3 +110,5 @@ curl -H "Authorization: Beaer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Miwid
     }
 ]
 ```
+
+This step-by-step gets a user with an 'Admin role'. A banned user would see an error message when trying to authenticate in step 3. A user with the 'User' role would see an error message when trying the access all the users in step 4.
