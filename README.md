@@ -4,6 +4,8 @@ A **Scala Spring Boot REST API** with **OAuth**, **Role-based Access Control** a
 ## Purpose
 In order to learn more about authentication and authorization, I decided to make a REST API that incorporated some of the most widely used methods and frameworks.
 
+This application stores 'Users'. All the endpoints in the application are open, except the _/users/all_ endpoint. To be authorized to access this endpoint a user must have a valid access token (OAuth using JWTs) with the role of 'Admin' (RBAC). To obtain an access token, a user must authenticate using the _/authenticate_ endpoint. A user with a 'Banned' role cannot authenticate.
+
 ## Role-based Access Control (RBAC)
 A user object contains a:
 
