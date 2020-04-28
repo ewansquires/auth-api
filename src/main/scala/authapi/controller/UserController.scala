@@ -20,6 +20,6 @@ class UserController @Autowired() (private val userService: UserService) {
   @GetMapping(path = Array("/all"))
   def listUsers(@RequestHeader("authorization") token: String): Object = userService.listUsers(token)
 
-  @GetMapping(path = Array("/fill"))
+  @PostMapping(path = Array("/fill"))
   def fillUserRepository(): Unit = userService.fillRepository()
 }
